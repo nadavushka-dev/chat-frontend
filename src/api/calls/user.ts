@@ -9,20 +9,14 @@ import {
 async function loginApi(
   request: LoginRequest,
 ): Promise<AxiosResponse<AuthResponse>> {
-  const response = await api.post(
-    import.meta.env.VITE_API_URL + "users/login",
-    request,
-  );
+  const response = await api.post("users/login", request);
   return response;
 }
 
 async function signupApi(
   request: SignupRequest,
 ): Promise<AxiosResponse<AuthResponse>> {
-  const response = await api.post(
-    import.meta.env.VITE_API_URL + "users/signup",
-    request,
-  );
+  const response = await api.post("users/signup", request);
   return response;
 }
 

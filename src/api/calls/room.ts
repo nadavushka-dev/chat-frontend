@@ -5,21 +5,17 @@ import {
 } from "../../models/rooms.model";
 
 async function getRoomsApi() {
-  const response = await api.get(import.meta.env.VITE_API_URL + "rooms/");
+  const response = await api.get("rooms/");
   return response;
 }
 
 async function getRoomMessagesApi(request: GetRoomMessagesRequest) {
-  const response = await api.get(
-    import.meta.env.VITE_API_URL + `rooms/messagesByRoom/${request.roomId}`,
-  );
+  const response = await api.get(`rooms/messagesByRoom/${request.roomId}`);
   return response;
 }
 
 async function getRoomParticipantsApi(request: GetRoomParticipantsRequest) {
-  const response = await api.get(
-    import.meta.env.VITE_API_URL + `rooms/${request.roomId}`,
-  );
+  const response = await api.get(`rooms/${request.roomId}`);
   return response;
 }
 
