@@ -44,7 +44,7 @@ export const loginThunkBuilder = (
 
 export const signupThunk = createApiThunk(
   "signup",
-  async (request: SignupRequest) => {
+  async (request: SignupRequest): Promise<AuthResponse> => {
     const response = await signupApi(request);
     if (response.data.jwt) {
       localStorage.setItem("jwt", response.data.jwt);
