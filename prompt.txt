@@ -1,0 +1,11 @@
+read the project file and structure first.
+create a chat app using react (please notice that project already initialized)
+you have fetch room list from server
+you have to join a room
+
+you will present the other members in the room, if none show no members on the side
+you will have a text box to type a message
+when you type a message, you will send it to the server
+when you receive a message, you will show it on the screen
+
+i want the colors to match gruvbox dark
