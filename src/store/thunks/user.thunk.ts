@@ -65,6 +65,7 @@ export const signupThunkBuilder = (
     if (!response) return;
 
     const user = decodeJWT(response.jwt);
+    state.jwt = response.jwt;
     state.user.email = user.email;
     state.user.username = user.username;
     state.user.id = user.userId;
