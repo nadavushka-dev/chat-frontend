@@ -17,7 +17,7 @@ const AuthPage = () => {
   const { register, handleSubmit, watch } = useForm();
   const password = watch("password");
   const email = watch("email");
-  const username = watch("username");
+  const name = watch("name");
 
   const onSubmit = async (data: any) => {
     try {
@@ -115,10 +115,7 @@ const AuthPage = () => {
             type="submit"
             className="auth-btn"
             disabled={
-              isLoading ||
-              !email ||
-              !password ||
-              (mode === "signup" && !username)
+              isLoading || !email || !password || (mode === "signup" && !name)
             }
           >
             {isLoading
