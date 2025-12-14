@@ -11,13 +11,13 @@ const AuthPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [mode, setMode] = useState<AuthMode>("login");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
   const isLoading = useSelector((state: RootState) => state.user.isLoading);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
+  const password = watch("password");
+  const email = watch("email");
+  const username = watch("username");
 
   const onSubmit = async (data: any) => {
     try {
@@ -76,8 +76,6 @@ const AuthPage = () => {
                 type="text"
                 className="auth-input"
                 placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
                 disabled={isLoading}
               />
             </div>
@@ -93,8 +91,6 @@ const AuthPage = () => {
               type="email"
               className="auth-input"
               placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
             />
           </div>
@@ -109,8 +105,6 @@ const AuthPage = () => {
               type="password"
               className="auth-input"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
             />
           </div>
