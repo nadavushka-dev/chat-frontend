@@ -5,7 +5,7 @@ name: Build and Push Frontend
 on:
   push:
     branches:
-      - main
+      - master
 
 # Define the jobs to run
 jobs:
