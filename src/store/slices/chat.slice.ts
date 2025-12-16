@@ -6,7 +6,7 @@ import { User } from "./user.slice";
 export type ChatsState = {
   isLoading: boolean;
   messages: Message[];
-  rooms?: Room[];
+  rooms: Room[];
   currnetRoomId?: number | null;
   currentRoomParticipants: ({ name: string } & Pick<User, "id">)[];
   onlineUsers: Record<number, boolean>;
@@ -17,6 +17,7 @@ const initialState: ChatsState = {
   messages: [],
   currentRoomParticipants: [],
   onlineUsers: [],
+  rooms: [],
 };
 
 const ChatsSlice = createSlice({
@@ -34,6 +35,9 @@ const ChatsSlice = createSlice({
     },
     leave: (state) => {
       state.currnetRoomId = null;
+    },
+    addRoom: (state, action: PayloadAction<Room>) => {
+      state.rooms.push(action.payload);
     },
     addOnlineUsers: (state, action: PayloadAction<number[]>) => {
       action.payload.forEach((id) => (state.onlineUsers[id] = true));
@@ -53,5 +57,6 @@ const ChatsSlice = createSlice({
 });
 
 export const chatActions = ChatsSlice.actions;
+
 const chatsReducer: Reducer<ChatsState> = ChatsSlice.reducer;
 export default chatsReducer;

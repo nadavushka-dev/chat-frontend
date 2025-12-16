@@ -7,6 +7,7 @@ export const enum SE {
   DISCONNECT = "disconnect",
   DELIVER = "deliver",
   JOIN_ROOM = "join_room",
+  ROOM_CREATED = "room_created",
   LEAVE_ROOM = "leave_room",
   MSG = "msg",
   ERROR = "error",

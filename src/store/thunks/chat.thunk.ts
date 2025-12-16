@@ -1,11 +1,14 @@
 import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { createApiThunk } from "../utils/apiThunk";
 import {
+  createRoomApi,
   getRoomMessagesApi,
   getRoomParticipantsApi,
   getRoomsApi,
 } from "../../api/calls/room";
 import {
+  CreateRoomRequest,
+  CreateRoomResponse,
   GetRoomMessagesRequest,
   GetRoomMessagesResponse,
   GetRoomParticipantsRequest,
@@ -88,15 +91,41 @@ export const getRoomParticipantsThunkBuilder = (
   });
 };
 
+export const createRoomThunk = createApiThunk(
+  "createRoom",
+  async (request: CreateRoomRequest): Promise<CreateRoomResponse> => {
+    return (await createRoomApi(request)).data;
+  },
+);
+
+export const createRoomThunkBuilder = (
+  builder: ActionReducerMapBuilder<ChatsState>,
+) => {
+  builder.addCase(createRoomThunk.pending, (state) => {
+    state.isLoading = true;
+  });
+  builder.addCase(createRoomThunk.fulfilled, (state, action) => {
+    state.isLoading = false;
+    const response = action.payload;
+    if (!response) return;
+    // state.rooms.push(response);
+  });
+  builder.addCase(createRoomThunk.rejected, (state) => {
+    state.isLoading = false;
+  });
+};
+
 export const chatThunkActionsBuilder = (
   builder: ActionReducerMapBuilder<ChatsState>,
 ) => {
   getRoomsThunkBuilder(builder);
   getRoomMessagesThunkBuilder(builder);
   getRoomParticipantsThunkBuilder(builder);
+  createRoomThunkBuilder(builder);
 };
 
 export const userActions = {
   getRoomsThunk,
   getRoomMessagesThunk,
+  createRoomThunk,
 };

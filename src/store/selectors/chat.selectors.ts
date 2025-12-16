@@ -6,6 +6,7 @@ const selectoedRoom = (state: RootState) =>
 const rooms = (state: RootState) => state.chat.rooms;
 const participants = (state: RootState) => state.chat.currentRoomParticipants;
 const onlineUsers = (state: RootState) => state.chat.onlineUsers;
+const isLoading = (state: RootState) => state.chat.isLoading;
 
 export const chatSelectors = {
   messages,
@@ -13,4 +14,5 @@ export const chatSelectors = {
   rooms,
   participants,
   onlineUsers,
+  isLoading,
 };

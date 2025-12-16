@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store";
 import useSocket from "../hooks/useSocket";
-import { getRoomsThunk } from "../store/thunks/chat.thunk";
+import { createRoomThunk, getRoomsThunk } from "../store/thunks/chat.thunk";
 import { useNavigate } from "react-router-dom";
 import { chatSelectors } from "../store/selectors/chat.selectors";
+import { userSelectors } from "../store/selectors/user.selectors";
+import CreateRoomModal from "./CreateRoomModal";
 
 const Homepage: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const rooms = useSelector(chatSelectors.rooms);
+  const user = useSelector(userSelectors.user);
+  const isLoading = useSelector(chatSelectors.isLoading);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const { connectSocket, joinRoom } = useSocket();
   useEffect(() => {
@@ -23,6 +28,19 @@ const Homepage: React.FC = () => {
     });
   };
 
+  const handleCreateRoom = async (name: string) => {
+    if (!user.id) return;
+    const result = await dispatch(
+      createRoomThunk({ name, createBy: user.id }),
+    ).unwrap();
+    if (result) {
+      setShowCreateModal(false);
+      joinRoom(result.id, () => {
+        navigate(`/room/${result.id}`);
+      });
+    }
+  };
+
   return (
     <>
       <div className="homepage">
@@ -33,7 +51,15 @@ const Homepage: React.FC = () => {
           </p>
         </div>
         <div className="rooms-section">
-          <h2 className="section-title">Available Rooms</h2>
+          <div className="section-header">
+            <h2 className="section-title">Available Rooms</h2>
+            <button
+              className="create-room-btn"
+              onClick={() => setShowCreateModal(true)}
+            >
+              + Create Room
+            </button>
+          </div>
           <div className="room-cards">
             {!!rooms &&
               rooms.map((room) => (
@@ -59,6 +85,13 @@ const Homepage: React.FC = () => {
           </div>
         </div>
       </div>
+      {showCreateModal && (
+        <CreateRoomModal
+          onSubmit={handleCreateRoom}
+          onCancel={() => setShowCreateModal(false)}
+          isLoading={isLoading}
+        />
+      )}
     </>
   );
 };

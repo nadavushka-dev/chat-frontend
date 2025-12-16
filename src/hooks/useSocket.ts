@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useAppDispatch } from "../store";
 import { chatActions } from "../store/slices/chat.slice";
 import { SE, So } from "./socket";
-import { Message } from "../models/rooms.model";
+import { Message, Room } from "../models/rooms.model";
 
 const useSocket = () => {
   const dispatch = useAppDispatch();
@@ -18,17 +18,21 @@ const useSocket = () => {
       dispatch(chatActions.addOnlineUsers(ids));
     });
 
-    So.getSocket().on(SE.USER_ONLINE, (id, username) => {
+    So.getSocket().on(SE.USER_ONLINE, (id: number, username: string) => {
       dispatch(chatActions.addOnlineUsers([id]));
       dispatch(chatActions.addParticipant({ id, username }));
     });
 
-    So.getSocket().on(SE.USER_OFFLINE, (id) => {
+    So.getSocket().on(SE.USER_OFFLINE, (id: number) => {
       dispatch(chatActions.removeOnlineUser(id));
     });
 
-    So.getSocket().on(SE.DELIVER, (message) => {
+    So.getSocket().on(SE.DELIVER, (message: Message) => {
       dispatch(chatActions.addMessage(message));
+    });
+
+    So.getSocket().on(SE.ROOM_CREATED, (room: Room) => {
+      dispatch(chatActions.addRoom(room));
     });
   }, []);
 

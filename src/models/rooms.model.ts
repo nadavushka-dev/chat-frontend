@@ -24,3 +24,14 @@ export type GetRoomParticipantsResponse = ({ name: string } & Pick<
   User,
   "id"
 >)[];
+
+export type CreateRoomRequest = {
+  name: string;
+  createBy: number;
+};
+export type CreateRoomResponse = {
+  id: number;
+  name: string;
+  createdAt: Date;
+  createBy: number;
+};

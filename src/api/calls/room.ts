@@ -1,5 +1,6 @@
 import api from "../../axios/interceptors";
 import {
+  CreateRoomRequest,
   GetRoomMessagesRequest,
   GetRoomParticipantsRequest,
 } from "../../models/rooms.model";
@@ -19,4 +20,14 @@ async function getRoomParticipantsApi(request: GetRoomParticipantsRequest) {
   return response;
 }
 
-export { getRoomsApi, getRoomMessagesApi, getRoomParticipantsApi };
+async function createRoomApi(request: CreateRoomRequest) {
+  const response = await api.post(`rooms/`, request);
+  return response;
+}
+
+export {
+  getRoomsApi,
+  getRoomMessagesApi,
+  getRoomParticipantsApi,
+  createRoomApi,
+};
