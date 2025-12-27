@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store";
-import { getRoomsThunk } from "../store/thunks/chat.thunk";
+import { getRoomsThunk } from "../store/thunks/chat/chat.thunk";
 import useSocket from "../hooks/useSocket";
 import { chatSelectors } from "../store/selectors/chat.selectors";
 

@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 type DecodedJwt = {
   email: string;
   exp: number;
@@ -7,9 +9,7 @@ type DecodedJwt = {
 };
 
 export function decodeJWT(token: string): DecodedJwt {
-  const data = token.split(".")[1];
-
-  const decodedData = JSON.parse(window.atob(data));
+  const decodedData = jwtDecode<DecodedJwt>(token);
 
   return decodedData;
 }

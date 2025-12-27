@@ -8,3 +8,4 @@ export const injectStore = (store: Store<RootState>) => {
 };
 
 export const getStoreState = () => getStore().getState();
+export const getStoreStore = () => getStore();

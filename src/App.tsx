@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./index.css";
 import AppRouter from "./components/AppRouter";
@@ -9,18 +9,21 @@ import { useEffect } from "react";
 function App() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isInRoom = location.pathname.startsWith("/room/");
   const isAuthenticated = useSelector(userSelectors.isAuth);
   const username = useSelector(userSelectors.username);
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("access_token");
     if (!token) return;
+
     dispatch(restoreUser(token));
   }, []);
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/");
   };
 
   return (

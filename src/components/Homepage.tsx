@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store";
 import useSocket from "../hooks/useSocket";
-import { createRoomThunk, getRoomsThunk } from "../store/thunks/chat.thunk";
+import {
+  createRoomThunk,
+  getRoomsThunk,
+} from "../store/thunks/chat/chat.thunk";
 import { useNavigate } from "react-router-dom";
 import { chatSelectors } from "../store/selectors/chat.selectors";
 import { userSelectors } from "../store/selectors/user.selectors";

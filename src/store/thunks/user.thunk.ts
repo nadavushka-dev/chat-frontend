@@ -1,5 +1,4 @@
 import { ActionReducerMapBuilder } from "@reduxjs/toolkit";
-import { UserState } from "../slices/user.slice";
 import {
   AuthResponse,
   LoginRequest,
@@ -8,13 +7,14 @@ import {
 import { decodeJWT } from "../utils/jwt-decoder";
 import { loginApi, signupApi } from "../../api/calls/user";
 import { createApiThunk } from "../utils/apiThunk";
+import { UserState } from "../types/user.types";
 
 export const loginThunk = createApiThunk(
   "login",
   async (request: LoginRequest): Promise<AuthResponse> => {
     const response = await loginApi(request);
     if (response.data.jwt) {
-      localStorage.setItem("jwt", response.data.jwt);
+      localStorage.setItem("access_token", response.data.jwt);
     }
     return response.data;
   },
@@ -47,7 +47,7 @@ export const signupThunk = createApiThunk(
   async (request: SignupRequest): Promise<AuthResponse> => {
     const response = await signupApi(request);
     if (response.data.jwt) {
-      localStorage.setItem("jwt", response.data.jwt);
+      localStorage.setItem("access_token", response.data.jwt);
     }
     return response.data;
   },

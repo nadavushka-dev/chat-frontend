@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, Reducer } from "@reduxjs/toolkit";
 import { Message, Room } from "../../models/rooms.model";
-import { chatThunkActionsBuilder } from "../thunks/chat.thunk";
-import { User } from "./user.slice";
+import { chatThunkActionsBuilder } from "../thunks/chat/chat.thunk";
+import { User } from "../types/user.types";
 
 export type ChatsState = {
   isLoading: boolean;

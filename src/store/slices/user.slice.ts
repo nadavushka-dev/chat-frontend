@@ -1,18 +1,7 @@
 import { createSlice, PayloadAction, Reducer } from "@reduxjs/toolkit";
-import { userThunkActionsBuilder } from "../thunks/user.thunk";
 import { decodeJWT } from "../utils/jwt-decoder";
-
-export type User = {
-  username?: string;
-  email?: string;
-  id?: number;
-};
-
-export interface UserState {
-  jwt?: string | null;
-  isLoading: boolean;
-  user: User;
-}
+import { UserState } from "../types/user.types";
+import { userThunkActionsBuilder } from "../thunks/user.thunk";
 
 const initialState: UserState = {
   jwt: null,
@@ -33,7 +22,7 @@ const userSlice = createSlice({
     },
     logout(state) {
       state.jwt = null;
-      localStorage.removeItem("jwt");
+      localStorage.removeItem("access_token");
     },
   },
   extraReducers: userThunkActionsBuilder,

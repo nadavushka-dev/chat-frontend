@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { userActions } from "../store/thunks/user.thunk";
 import { RootState, useAppDispatch } from "../store";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { userActions } from "../store/thunks/user.thunk";
 
 type AuthMode = "login" | "signup";
 

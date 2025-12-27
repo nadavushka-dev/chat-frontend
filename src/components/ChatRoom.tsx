@@ -8,7 +8,7 @@ import { useAppDispatch } from "../store";
 import {
   getRoomMessagesThunk,
   getRoomParticipantsThunk,
-} from "../store/thunks/chat.thunk";
+} from "../store/thunks/chat/chat.thunk";
 
 const ChatRoom: React.FC = () => {
   const dispatch = useAppDispatch();
