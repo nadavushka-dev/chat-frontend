@@ -1,4 +1,4 @@
-import { User } from "../store/slices/user.slice";
+import { User } from "../store/types/user.types";
 
 export type RoomList = Room[];
 export type Room = {
